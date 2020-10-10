@@ -1,11 +1,14 @@
+echo(str("\n
+    +-------+\n
+    | START |\n
+    +-------+\n"));
+
 // PARAMETERS
 nozzleDiameter = 1;
 
-// START CALCULATIONS
+//  CALCULATIONS
 echo("\n
     +-------+\n
-    | START |\n
-    +-------+\n");
 
 tabWidth  = nozzleDiameter * 30;
 tabHeight = tabWidth/2;
@@ -15,16 +18,15 @@ chamferWidth  = tabWidth * .9;
 
 depth  = 3;
 
-echo(
+echo(str(
     "\n nozzleDiameter = ", nozzleDiameter,
     "\n tabWidth = ", tabWidth,
     "\n tabHeight = ", tabHeight,
     "\n chamferWidth = ", chamferWidth,
     "\n chamferHeight = ", chamferHeight,
     "\n depth = ", depth,
-    "\n"
+    "\n")
 );
-
 
 // CREATE FIRST TAB
 difference(){
@@ -66,7 +68,7 @@ difference(){
     }
 }
 
-echo("\n
+echo(str("\n
     +-----+\n
     | END |\n
-    +-----+\n");
+    +-----+\n"));
