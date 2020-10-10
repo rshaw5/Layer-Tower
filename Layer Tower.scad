@@ -1,3 +1,12 @@
+// PARAMETERS
+nozzleDiameter = 1;
+
+echo("\n
++-------+\n
+| START |\n
++-------+\n
+");
+
 width  = 21;
 depth  = 3;
 height = 10;
@@ -17,7 +26,6 @@ difference(){
 }
 
 for( level = [1:10] ) {
-    echo(level);
     translate([0,0,height * level]) {
         difference(){
             hull() {
@@ -38,3 +46,9 @@ for( level = [1:10] ) {
             }
     }
 }
+
+echo("\n
++-----+\n
+| END |\n
++-----+\n
+");
