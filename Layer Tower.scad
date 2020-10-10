@@ -7,21 +7,23 @@ echo(str("\n
 nozzleDiameter = 1;
 
 //  CALCULATIONS
-echo("\n
-    +-------+\n
+tabHeight = nozzleDiameter * 20;
+tabWidth  = tabHeight * 2.5;
 
-tabWidth  = nozzleDiameter * 30;
-tabHeight = tabWidth/2;
+textHeight = tabHeight * .8;
+textWidth = tabWidth * .8;
 
 chamferHeight = tabHeight * .1;
 chamferWidth  = tabWidth * .9;
 
-depth  = 3;
+depth  = nozzleDiameter * 5;
 
 echo(str(
     "\n nozzleDiameter = ", nozzleDiameter,
     "\n tabWidth = ", tabWidth,
     "\n tabHeight = ", tabHeight,
+    "\n textWidth = ", textWidth,
+    "\n textHeight = ", textHeight,
     "\n chamferWidth = ", chamferWidth,
     "\n chamferHeight = ", chamferHeight,
     "\n depth = ", depth,
