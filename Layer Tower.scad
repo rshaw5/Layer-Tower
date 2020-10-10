@@ -1,21 +1,40 @@
 // PARAMETERS
 nozzleDiameter = 1;
 
+// START CALCULATIONS
 echo("\n
     +-------+\n
     | START |\n
     +-------+\n");
 
-width  = 21;
+tabWidth  = nozzleDiameter * 30;
+tabHeight = tabWidth/2;
+
+chamferHeight = tabHeight * .1;
+chamferWidth  = tabWidth * .9;
+
 depth  = 3;
 
+echo(
+    "\n nozzleDiameter = ", nozzleDiameter,
+    "\n tabWidth = ", tabWidth,
+    "\n tabHeight = ", tabHeight,
+    "\n chamferWidth = ", chamferWidth,
+    "\n chamferHeight = ", chamferHeight,
+    "\n depth = ", depth,
+    "\n"
+);
 
+
+// CREATE FIRST TAB
 difference(){
     hull() {
-        cube(size = [width, depth, height - 1]);
+        // Main Tab
+        cube(size = [ tabWidth, depth, tabHeight - chamferHeight ]);
     
-        translate([1,0,height - height/10])
-            cube(size = [width-2,depth,height/10]);
+        // Top Chamfer
+        translate([(tabWidth - chamferWidth)/2,0, tabHeight - chamferHeight])
+            cube(size = [chamferWidth,depth,chamferHeight]);
     }
 
     rotate(90, [1,0,0])
@@ -24,7 +43,8 @@ difference(){
             text(".04", font="Consolas:style=Regular", size=height-2, spacing=1);
 }
 
-for( level = [1:10] ) {
+// CREATE ALL OTHER TABS
+*for( level = [1:10] ) {
     translate([0,0,height * level]) {
         difference(){
             hull() {
