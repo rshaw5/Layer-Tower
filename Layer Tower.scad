@@ -41,10 +41,12 @@ difference(){
             cube(size = [chamferWidth,depth,chamferHeight]);
     }
 
-    rotate(90, [1,0,0])
-        translate([1,height/10,-1])
-            linear_extrude(height=2)
-            text(".04", font="Consolas:style=Regular", size=height-2, spacing=1);
+    // Label
+    translate([.8 * ((tabWidth-textWidth)/2), 0, (tabHeight - textHeight)/2])
+    resize([textWidth,0,textHeight])
+    rotate([90,0,0])
+    linear_extrude(depth)
+         text("0.4", font="Consolas:style=Regular");
 }
 
 // CREATE ALL OTHER TABS
