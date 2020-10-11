@@ -50,10 +50,20 @@ difference(){
 }
 
 // CREATE ALL OTHER TABS
-layerStep = (nozzleDiameter / 9) % 0.4;
-echo(str("layerStep = ", layerStep));
+layerModifier = ceil((nozzleDiameter-0.04)/0.36);
+echo(str("layerIncrements = ", layerModifier));
 
-for( level = [1:10] ) {
+layerIncrement = layerModifier * 0.04;
+echo(str("layerIncrement = ", layerIncrement));
+
+layerSteps = [ for (i = [0.04 : layerIncrement : nozzleDiameter]) i ];
+totalLayers = len(layerSteps) - 1;
+*for ( level = [1:totalLayers]){
+    translate([0, 0, tabHeight * level])
+        cube([tabWidth, depth, tabHeight]);
+}
+
+for( level = [1:totalLayers] ) {
     translate([0,0,tabHeight * level]) {
         difference(){
             hull() {
@@ -75,7 +85,7 @@ for( level = [1:10] ) {
             resize([textWidth,0,textHeight])
             rotate([90,0,0])
             linear_extrude(depth)
-                  text(str(level * 0.04 + 0.04), font="Consolas:style=Regular");
+                  text(str(layerSteps[level]), font="Consolas:style=Regular");
             }
     }
 }
