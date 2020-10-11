@@ -11,7 +11,7 @@ tabHeight = nozzleDiameter * 20;
 tabWidth  = tabHeight * 2.5;
 
 textHeight = tabHeight * .8;
-textWidth = tabWidth * .8;
+textWidth = tabWidth * .6;
 
 chamferHeight = tabHeight * .1;
 chamferWidth  = tabWidth * .9;
@@ -46,28 +46,36 @@ difference(){
     resize([textWidth,0,textHeight])
     rotate([90,0,0])
     linear_extrude(depth)
-         text("0.4", font="Consolas:style=Regular");
+         text("0.04", font="Consolas:style=Regular");
 }
 
 // CREATE ALL OTHER TABS
-*for( level = [1:10] ) {
-    translate([0,0,height * level]) {
+layerStep = (nozzleDiameter / 9) % 0.4;
+echo(str("layerStep = ", layerStep));
+
+for( level = [1:10] ) {
+    translate([0,0,tabHeight * level]) {
         difference(){
             hull() {
-                translate([1, 0, 0])
-                    cube(size = [width-2,depth,height/10]);
+                // Bottom Chamfer
+                translate([(tabWidth - chamferWidth)/2,0, 0])
+                  cube(size = [chamferWidth,depth,chamferHeight]);
                 
-                translate([0,0,height/10])
-                    cube(size = [width, depth, height - 1]);
-                
-                translate([1,0,height - height/10])
-                    cube(size = [width-2,depth,height/10]);
+                // Main Tab
+                translate([0,0,chamferHeight])
+                  cube(size = [ tabWidth, depth, tabHeight - chamferHeight * 2 ]);
+            
+                // Top Chamfer
+                translate([(tabWidth - chamferWidth)/2,0, tabHeight - chamferHeight])
+                  cube(size = [chamferWidth,depth,chamferHeight]);
             }
-
-            rotate(90, [1,0,0])
-                translate([1,height/10,-1])
-                    linear_extrude(height=2)
-                    text(str((level * 0.2)), font="Consolas:style=Regular", size=height-2, spacing=1);
+            
+            // Label
+            translate([.8 * ((tabWidth-textWidth)/2), 0, (tabHeight - textHeight)/2])
+            resize([textWidth,0,textHeight])
+            rotate([90,0,0])
+            linear_extrude(depth)
+                  text(str(level * 0.04 + 0.04), font="Consolas:style=Regular");
             }
     }
 }
