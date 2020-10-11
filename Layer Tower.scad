@@ -81,7 +81,7 @@ for( level = [1:totalLayers] ) {
             }
             
             // Label
-            translate([.8 * ((tabWidth-textWidth)/2), 0, (tabHeight - textHeight)/2])
+            translate([.8 * ((tabWidth-textWidth)/2), nozzleDiameter, (tabHeight - textHeight)/2])
             resize([textWidth,0,textHeight])
             rotate([90,0,0])
             linear_extrude(depth)
